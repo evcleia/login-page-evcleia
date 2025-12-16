@@ -4,19 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LSFD - Giriş Yap</title>
-
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
     
-    // Kullanıcı kontrolü (sizin mevcut kodunuz)
-    // ... şifre kontrolü vs ...
-    
-    // Başarılı giriş:
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('currentUser', username);
-    window.location.href = 'main.html';
-}
     <link rel="icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
     <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
     
@@ -330,13 +318,14 @@ function login() {
 
         // Sayfa yüklendiğinde kontroller
         window.addEventListener('DOMContentLoaded', async () => {
-            // Kullanıcı listesini önceden yükle
-            await loadUsers();
-            
             // Zaten giriş yapılmış mı kontrol et
             if (sessionStorage.getItem('lsfdAuth') === 'true') {
                 window.location.href = 'main.html';
+                return;
             }
+            
+            // Kullanıcı listesini önceden yükle
+            await loadUsers();
         });
 
         // Enter tuşu ile form gönderme
