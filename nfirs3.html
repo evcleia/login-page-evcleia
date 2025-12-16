@@ -4,17 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFIRS-3 - LSFD Rapor Sistemi</title>
-
-<script>
-    (function() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        const currentUser = localStorage.getItem('currentUser');
-        if (!isLoggedIn || isLoggedIn !== 'true' || !currentUser) {
-            window.location.href = 'index.html';
-        }
-    })();
-</script>
-
     
     <link rel="icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -144,7 +133,7 @@
             <div class="flex items-center gap-4">
                 <img src="https://i.imgur.com/niSY7Na.png" alt="LSFD" class="h-12">
                 <div>
-                    <h1 class="text-xl font-bold text-gray-100">NFIRS-3 Structure Fire</h1>
+                    <h1 class="text-xl font-bold text-gray-100">NFIRS-3 Structure Fire Module</h1>
                     <p class="text-xs text-gray-400">National Fire Incident Reporting System</p>
                 </div>
             </div>
@@ -158,7 +147,7 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto p-6">
         
-        <!-- Structure Type and Status -->
+        <!-- Structure Type, Status, Material -->
         <div class="card rounded-lg p-1 mb-6 fade-in">
             <div class="section-title">Yapı Bilgileri</div>
             <div class="p-6">
@@ -182,11 +171,13 @@
                                 <input type="checkbox" name="yapiTuru" value="endustriyel" class="checkbox-input">
                                 <span class="text-sm">Endüstriyel.</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="yapiTuru" value="diger" class="checkbox-input" onchange="toggleOtherInput('yapiTuruDiger', this)">
-                                <span class="text-sm">Diğer:</span>
-                                <input type="text" id="yapiTuruDiger" class="form-input flex-1 ml-2" placeholder="Belirtiniz" disabled>
-                            </label>
+                            <div class="flex items-center gap-2">
+                                <label class="checkbox-label flex-grow-0">
+                                    <input type="checkbox" name="yapiTuru" value="diger" class="checkbox-input" onchange="toggleOtherInput('yapiTuruDiger', this)">
+                                    <span class="text-sm">Diğer:</span>
+                                </label>
+                                <input type="text" id="yapiTuruDiger" class="form-input flex-1" placeholder="Açıklama" disabled>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -233,45 +224,47 @@
                                 <input type="checkbox" name="yapiMalzemesi" value="karisik" class="checkbox-input">
                                 <span class="text-sm">Karışık.</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="yapiMalzemesi" value="diger" class="checkbox-input" onchange="toggleOtherInput('yapiMalzemesiDiger', this)">
-                                <span class="text-sm">Diğer:</span>
-                                <input type="text" id="yapiMalzemesiDiger" class="form-input flex-1 ml-2" placeholder="Belirtiniz" disabled>
-                            </label>
+                            <div class="flex items-center gap-2">
+                                <label class="checkbox-label flex-grow-0">
+                                    <input type="checkbox" name="yapiMalzemesi" value="diger" class="checkbox-input" onchange="toggleOtherInput('yapiMalzemesiDiger', this)">
+                                    <span class="text-sm">Diğer:</span>
+                                </label>
+                                <input type="text" id="yapiMalzemesiDiger" class="form-input flex-1" placeholder="Açıklama" disabled>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Fire Details -->
+        <!-- Floor, Room, Spread, Damage -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.1s">
             <div class="section-title">Yangın Detayları</div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
                         <label class="form-label">Kat Sayısı</label>
-                        <input type="text" id="katSayisi" class="form-input" placeholder="Örn: 3">
+                        <input type="text" id="katSayisi" class="form-input" placeholder="Ör: 3">
                     </div>
                     <div>
                         <label class="form-label">Yangının Başladığı Oda</label>
-                        <input type="text" id="baslangicOda" class="form-input" placeholder="Örn: Mutfak">
+                        <input type="text" id="baslangicOdasi" class="form-input" placeholder="Ör: Mutfak">
                     </div>
                     <div>
                         <label class="form-label">Yangının Yayılımı</label>
-                        <input type="text" id="yanginYayilimi" class="form-input" placeholder="Örn: Tüm bina">
+                        <input type="text" id="yanginYayilimi" class="form-input" placeholder="Ör: Tüm bina">
                     </div>
                     <div>
                         <label class="form-label">Alev Hasarının Boyutu</label>
-                        <input type="text" id="alevHasari" class="form-input" placeholder="Örn: %50">
+                        <input type="text" id="alevHasari" class="form-input" placeholder="Ör: Orta">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Detection Systems -->
+        <!-- Detector and Sprinkler -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.2s">
-            <div class="section-title">Tespit ve Söndürme Sistemleri</div>
+            <div class="section-title">Güvenlik Sistemleri</div>
             <div class="p-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div>
@@ -295,7 +288,7 @@
                         <label class="form-label mb-3">Yağmurlama Sistemi</label>
                         <div class="space-y-2">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="yagmurlama" value="basarili" class="checkbox-input">
+                                <input type="checkbox" name="yagmurlama" value="mudahale" class="checkbox-input">
                                 <span class="text-sm">Yağmurlama sistemi yangına müdahale etti.</span>
                             </label>
                             <label class="checkbox-label">
@@ -303,7 +296,7 @@
                                 <span class="text-sm">Yağmurlama sistemi yangına müdahale ettiyse de başarısız oldu.</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="yagmurlama" value="mudahale_etmedi" class="checkbox-input">
+                                <input type="checkbox" name="yagmurlama" value="etmedi" class="checkbox-input">
                                 <span class="text-sm">Yağmurlama sistemi yangına müdahale etmedi.</span>
                             </label>
                             <label class="checkbox-label">
@@ -316,45 +309,45 @@
             </div>
         </div>
 
-        <!-- Fire Origin -->
+        <!-- Heat Source, First Object, Human Factors -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.3s">
-            <div class="section-title">Yangın Kaynağı ve Faktörler</div>
+            <div class="section-title">Yangın Nedeni ve Faktörler</div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label class="form-label">Isı Kaynağı</label>
-                        <input type="text" id="isiKaynagi" class="form-input" placeholder="Örn: Elektrik">
+                        <input type="text" id="isiKaynagi" class="form-input" placeholder="Ör: Elektrik">
                     </div>
                     <div>
                         <label class="form-label">İlk Tutuşan Nesne</label>
-                        <input type="text" id="ilkTutusanNesne" class="form-input" placeholder="Örn: Perde">
+                        <input type="text" id="ilkTutusan" class="form-input" placeholder="Ör: Mobilya">
                     </div>
                     <div>
                         <label class="form-label">İnsani Faktörler</label>
-                        <input type="text" id="insaniFaktorler" class="form-input" placeholder="Örn: İhmal">
+                        <input type="text" id="insaniFaktorler" class="form-input" placeholder="Ör: İhmal">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Additional Information -->
+        <!-- Hazmat and Structural Changes -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.4s">
             <div class="section-title">Ek Bilgiler</div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="form-label">HAZMAT Varlığı</label>
-                        <input type="text" id="hazmat" class="form-input" placeholder="Örn: Yok / Var - Belirtiniz">
+                        <label class="form-label">Hazmat Varlığı</label>
+                        <input type="text" id="hazmat" class="form-input" placeholder="Ör: Yok">
                     </div>
                     <div>
                         <label class="form-label">Yapısal Değişiklikler</label>
-                        <input type="text" id="yapisalDegisiklikler" class="form-input" placeholder="Örn: Çatı çökmesi">
+                        <input type="text" id="yapisalDegisiklikler" class="form-input" placeholder="Ör: Çatı çökmesi">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Incident Narrative -->
+        <!-- Incident Notes -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.5s">
             <div class="section-title">Olay Anlatısı</div>
             <div class="p-6">
@@ -410,6 +403,14 @@
     </main>
 
     <script>
+        // Sayfa yüklendiğinde giriş kontrolü
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('lsfdAuth') !== 'true') {
+                window.location.href = 'index.html';
+                return;
+            }
+        });
+
         function toggleOtherInput(inputId, checkbox) {
             const input = document.getElementById(inputId);
             input.disabled = !checkbox.checked;
@@ -420,73 +421,99 @@
 
         function getCheckboxes(name) {
             const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-            return Array.from(checkboxes).map(cb => {
-                if (cb.value === 'diger') {
-                    const inputId = name + 'Diger';
-                    const otherText = document.getElementById(inputId)?.value || '';
-                    return otherText ? `[cbC] Diğer: ${otherText}` : '[cb] Diğer: ';
-                }
-                const label = cb.closest('.checkbox-label')?.querySelector('span')?.textContent || '';
-                return `[cbC] ${label}`;
-            }).join('\n');
-        }
-
-        function getAllCheckboxes(name) {
-            const allCheckboxes = document.querySelectorAll(`input[name="${name}"]`);
             const result = [];
             
-            allCheckboxes.forEach(cb => {
-                const isChecked = cb.checked;
-                const label = cb.closest('.checkbox-label')?.querySelector('span')?.textContent || '';
-                
+            checkboxes.forEach(cb => {
                 if (cb.value === 'diger') {
-                    const inputId = name + 'Diger';
-                    const otherText = document.getElementById(inputId)?.value || '';
-                    result.push(isChecked ? `[cbC] Diğer: ${otherText}` : '[cb] Diğer: ');
+                    const otherInput = document.getElementById(name + 'Diger');
+                    if (otherInput && otherInput.value.trim()) {
+                        result.push(`[cbC] Diğer: ${otherInput.value.trim()}`);
+                    } else {
+                        result.push(`[cb] Diğer: [size=85]Buraya[/size]`);
+                    }
                 } else {
-                    result.push(isChecked ? `[cbC] ${label}` : `[cb] ${label}`);
+                    result.push(`[cbC] ${getCheckboxText(name, cb.value)}`);
+                }
+            });
+            
+            // Unchecked boxes
+            const allCheckboxes = document.querySelectorAll(`input[name="${name}"]`);
+            allCheckboxes.forEach(cb => {
+                if (!cb.checked && cb.value !== 'diger') {
+                    result.push(`[cb] ${getCheckboxText(name, cb.value)}`);
                 }
             });
             
             return result.join('\n');
         }
 
+        function getCheckboxText(name, value) {
+            const texts = {
+                'yapiTuru': {
+                    'mustakil': 'Müstakil ev.',
+                    'apartman': 'Apartman.',
+                    'dukkan': 'Dükkan.',
+                    'endustriyel': 'Endüstriyel.'
+                },
+                'yapiDurumu': {
+                    'kullanimda': 'Kullanımda.',
+                    'bos': 'Boş.',
+                    'insaat': 'İnşaat/Tadilat halinde.',
+                    'harabe': 'Harabe.'
+                },
+                'yapiMalzemesi': {
+                    'ahsap': 'Ahşap çerçeve.',
+                    'tugla': 'Tuğla.',
+                    'celik': 'Çelik.',
+                    'beton': 'Beton.',
+                    'karisik': 'Karışık.'
+                },
+                'dedektor': {
+                    'uyardi': 'Dedektör kazazedeleri uyardı.',
+                    'uyarmadi': 'Dedektör herhangi bir uyarı yapmadı.',
+                    'bilinmiyor': 'Bilinmiyor.'
+                },
+                'yagmurlama': {
+                    'mudahale': 'Yağmurlama sistemi yangına müdahale etti.',
+                    'basarisiz': 'Yağmurlama sistemi yangına müdahale ettiyse de başarısız oldu.',
+                    'etmedi': 'Yağmurlama sistemi yangına müdahale etmedi.',
+                    'bilinmiyor': 'Bilinmiyor.'
+                }
+            };
+            return texts[name]?.[value] || '';
+        }
+
         function generateBBCode() {
-            const yapiTuru = getAllCheckboxes('yapiTuru');
-            const yapiDurumu = getAllCheckboxes('yapiDurumu');
-            const yapiMalzemesi = getAllCheckboxes('yapiMalzemesi');
-            const katSayisi = document.getElementById('katSayisi').value;
-            const baslangicOda = document.getElementById('baslangicOda').value;
-            const yanginYayilimi = document.getElementById('yanginYayilimi').value;
-            const alevHasari = document.getElementById('alevHasari').value;
-            const dedektor = getAllCheckboxes('dedektor');
-            const yagmurlama = getAllCheckboxes('yagmurlama');
-            const isiKaynagi = document.getElementById('isiKaynagi').value;
-            const ilkTutusanNesne = document.getElementById('ilkTutusanNesne').value;
-            const insaniFaktorler = document.getElementById('insaniFaktorler').value;
-            const hazmat = document.getElementById('hazmat').value;
-            const yapisalDegisiklikler = document.getElementById('yapisalDegisiklikler').value;
-            const olayAnlatisi = document.getElementById('olayAnlatisi').value;
-            const olayKomutani = document.getElementById('olayKomutani').value;
-            const formuDolduran = document.getElementById('formuDolduran').value;
-            const formTarihi = document.getElementById('formTarihi').value;
+            const katSayisi = document.getElementById('katSayisi').value || 'Buraya';
+            const baslangicOdasi = document.getElementById('baslangicOdasi').value || 'Buraya';
+            const yanginYayilimi = document.getElementById('yanginYayilimi').value || 'Buraya';
+            const alevHasari = document.getElementById('alevHasari').value || 'Buraya';
+            const isiKaynagi = document.getElementById('isiKaynagi').value || 'Buraya';
+            const ilkTutusan = document.getElementById('ilkTutusan').value || 'Buraya';
+            const insaniFaktorler = document.getElementById('insaniFaktorler').value || 'Buraya';
+            const hazmat = document.getElementById('hazmat').value || 'Buraya';
+            const yapisalDegisiklikler = document.getElementById('yapisalDegisiklikler').value || 'Buraya';
+            const olayAnlatisi = document.getElementById('olayAnlatisi').value || 'Buraya';
+            const olayKomutani = document.getElementById('olayKomutani').value || 'Buraya';
+            const formuDolduran = document.getElementById('formuDolduran').value || 'Buraya';
+            const formTarihi = document.getElementById('formTarihi').value || '23/11/2024';
 
             const bbcode = `[center][size=125]UNITED STATES FIRE ADMINISTRATION
 [b]NATIONAL FIRE INCIDENT REPORTING SYSTEM (NFIRS-3 STRUCTURE FIRE)[/b][/size][/center]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YAPI TÜRÜ[/b]
-${yapiTuru}[/indent][/size][/tdwidth]
+${getCheckboxes('yapiTuru')}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YAPI DURUMU[/b]
-${yapiDurumu}[/indent][/size][/tdwidth]
+${getCheckboxes('yapiDurumu')}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YAPI MALZEMESİ[/b]
-${yapiMalzemesi}[/indent][/size][/tdwidth][/table]
+${getCheckboxes('yapiMalzemesi')}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]KAT SAYISI[/b]
 ${katSayisi}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YANGININ BAŞLADIĞI ODA[/b]
-${baslangicOda}[/indent][/size][/tdwidth]
+${baslangicOdasi}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YANGININ YAYILIMI[/b]
 ${yanginYayilimi}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]ALEV HASARININ BOYUTU[/b]
@@ -494,15 +521,15 @@ ${alevHasari}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YANGIN DEDEKTÖRÜ[/b]
-${dedektor}[/indent][/size][/tdwidth]
+${getCheckboxes('dedektor')}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YAĞMURLAMA SİSTEMİ[/b]
-${yagmurlama}[/indent][/size][/tdwidth][/table]
+${getCheckboxes('yagmurlama')}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]ISI KAYNAĞI[/b]
 ${isiKaynagi}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]İLK TUTUŞAN NESNE[/b]
-${ilkTutusanNesne}[/indent][/size][/tdwidth]
+${ilkTutusan}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]İNSANİ FAKTÖRLER[/b]
 ${insaniFaktorler}[/indent][/size][/tdwidth][/table]
 
@@ -520,27 +547,4 @@ ${olayAnlatisi}[/indent][/size][/tdwidth][/table]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]OLAY KOMUTANI[/b]
 ${olayKomutani}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]FORMU DOLDURAN[/b]
-${formuDolduran}[/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]FORM TARİHİ[/b]
-${formTarihi}[/indent][/size][/tdwidth]`;
-
-            document.getElementById('output').value = bbcode;
-            document.getElementById('outputContainer').classList.remove('hidden');
-            document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function copyToClipboard() {
-            const output = document.getElementById('output');
-            output.select();
-            document.execCommand('copy');
-            
-            const copyText = document.getElementById('copyText');
-            copyText.textContent = '✓ Kopyalandı!';
-            setTimeout(() => {
-                copyText.textContent = '📋 Kopyala';
-            }, 2000);
-        }
-    </script>
-
-</body>
-</html>
+${formuDolduran}[/indent][/size][/tdwidth
