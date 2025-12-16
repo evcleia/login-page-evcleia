@@ -449,7 +449,7 @@ ${formTarihi}[/indent][/size][/tdwidth]`;
             document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function copyToClipboard()
+        function copyToClipboard() {
             const output = document.getElementById('output');
             output.select();
             document.execCommand('copy');
