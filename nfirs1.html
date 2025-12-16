@@ -413,8 +413,8 @@ ${yonelenBirimler}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]ALINAN AKSİYONLAR[/b]
 [size=85][b](1)[/b][/size] ${aksiyon1}
 [size=85][b](2)[/b][/size] ${aksiyon2}
-[size=85][b](1)[/b][/size] ${aksiyon3}
-[size=85][b](1)[/b][/size] ${aksiyon4}[/indent][/size][/tdwidth]
+[size=85][b](3)[/b][/size] ${aksiyon3}
+[size=85][b](4)[/b][/size] ${aksiyon4}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]DEDEKTÖR[/b]
 ${getCheckbox('dedektor', 'uyardi')} Dedektör kazazedeleri uyardı.
 ${getCheckbox('dedektor', 'uyarmadi')} Dedektör herhangi bir uyarı yapmadı.
@@ -449,7 +449,7 @@ ${formTarihi}[/indent][/size][/tdwidth]`;
             document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function copyToClipboard() {
+        function copyToClipboard()
             const output = document.getElementById('output');
             output.select();
             document.execCommand('copy');
