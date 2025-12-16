@@ -71,7 +71,7 @@
                     <p class="text-xs text-gray-400" id="userRank">-</p>
                 </div>
                 <button onclick="logout()" class="logout-btn px-4 py-2 rounded-lg text-white text-sm font-semibold">
-                    Ã‡Ä±kÄ±ÅŸ Yap
+                    Çıkış Yap
                 </button>
             </div>
         </div>
@@ -80,13 +80,13 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto p-6">
         
-        <!-- HoÅŸgeldiniz MesajÄ± -->
+        <!-- Hoşgeldiniz Mesajı -->
         <div class="card rounded-lg p-6 mb-8 fade-in">
-            <h2 class="text-2xl font-bold text-gray-100 mb-2">HoÅŸgeldiniz! ðŸš’</h2>
-            <p class="text-gray-400">LÃ¼tfen doldurmak istediÄŸiniz rapor formunu seÃ§in.</p>
+            <h2 class="text-2xl font-bold text-gray-100 mb-2">Hoşgeldiniz! 👋</h2>
+            <p class="text-gray-400">Lütfen doldurmak istediğiniz rapor formunu seçin.</p>
         </div>
 
-        <!-- Form KartlarÄ± -->
+        <!-- Form Kartları -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <!-- NFIRS-1 -->
@@ -114,7 +114,7 @@
                     <span class="text-xs bg-orange-900/50 text-orange-300 px-3 py-1 rounded-full font-semibold">NFIRS</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-100 mb-2">NFIRS-3</h3>
-                <p class="text-sm text-gray-400">YangÄ±n Raporu - YangÄ±n detaylarÄ±</p>
+                <p class="text-sm text-gray-400">Yangın Raporu - Yangın detayları</p>
             </div>
 
             <!-- NFIRS-4 -->
@@ -128,7 +128,7 @@
                     <span class="text-xs bg-yellow-900/50 text-yellow-300 px-3 py-1 rounded-full font-semibold">NFIRS</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-100 mb-2">NFIRS-4</h3>
-                <p class="text-sm text-gray-400">YapÄ± ve MÃ¼lk Raporu</p>
+                <p class="text-sm text-gray-400">Yapı ve Mülk Raporu</p>
             </div>
 
             <!-- NFIRS-5 -->
@@ -142,7 +142,7 @@
                     <span class="text-xs bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full font-semibold">NFIRS</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-100 mb-2">NFIRS-5</h3>
-                <p class="text-sm text-gray-400">YaralÄ±/Ã–lÃ¼m Raporu</p>
+                <p class="text-sm text-gray-400">Yaralı/Ölüm Raporu</p>
             </div>
 
             <!-- PCR -->
@@ -156,29 +156,29 @@
                     <span class="text-xs bg-green-900/50 text-green-300 px-3 py-1 rounded-full font-semibold">MEDICAL</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-100 mb-2">PCR</h3>
-                <p class="text-sm text-gray-400">Patient Care Report - Hasta bakÄ±m raporu</p>
+                <p class="text-sm text-gray-400">Patient Care Report - Hasta bakım raporu</p>
             </div>
 
         </div>
 
         <!-- Footer -->
         <div class="text-center mt-12">
-            <p class="text-xs text-gray-600">Â© 2025 evcleia - LSFD Rapor Sistemi</p>
+            <p class="text-xs text-gray-600">© 2025 evcleia - LSFD Rapor Sistemi</p>
         </div>
 
     </main>
 
     <script>
-        // Sayfa yÃ¼klendiÄŸinde kontroller
+        // Sayfa yüklendiğinde kontroller
         window.addEventListener('DOMContentLoaded', () => {
-            // GiriÅŸ kontrolÃ¼
+            // Giriş kontrolü
             if (sessionStorage.getItem('lsfdAuth') !== 'true') {
                 window.location.href = 'index.html';
                 return;
             }
 
-            // KullanÄ±cÄ± bilgilerini gÃ¶ster
-            const fullName = sessionStorage.getItem('lsfdFullName') || 'KullanÄ±cÄ±';
+            // Kullanıcı bilgilerini göster
+            const fullName = sessionStorage.getItem('lsfdFullName') || 'Kullanıcı';
             const rank = sessionStorage.getItem('lsfdRank') || 'Personel';
             
             document.getElementById('userFullName').textContent = fullName;
@@ -186,15 +186,15 @@
         });
 
         function logout() {
-            // Session'Ä± temizle
+            // Session'ı temizle
             sessionStorage.clear();
             
-            // Login sayfasÄ±na yÃ¶nlendir
+            // Login sayfasına yönlendir
             window.location.href = 'index.html';
         }
 
         function openForm(formType) {
-            // Form sayfalarÄ±na yÃ¶nlendir
+            // Form sayfalarına yönlendir
             const formPages = {
                 'nfirs1': 'nfirs1.html',
                 'nfirs3': 'nfirs3.html',
@@ -206,7 +206,7 @@
             if (formPages[formType]) {
                 window.location.href = formPages[formType];
             } else {
-                alert('Bu form henÃ¼z hazÄ±r deÄŸil.');
+                alert('Bu form henüz hazır değil.');
             }
         }
     </script>
