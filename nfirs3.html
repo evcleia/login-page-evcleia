@@ -547,4 +547,27 @@ ${olayAnlatisi}[/indent][/size][/tdwidth][/table]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]OLAY KOMUTANI[/b]
 ${olayKomutani}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]FORMU DOLDURAN[/b]
-${formuDolduran}[/indent][/size][/tdwidth
+${formuDolduran}[/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]FORM TARİHİ[/b]
+${formTarihi}[/indent][/size][/tdwidth]`;
+
+            document.getElementById('output').value = bbcode;
+            document.getElementById('outputContainer').classList.remove('hidden');
+            document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            output.select();
+            document.execCommand('copy');
+            
+            const copyText = document.getElementById('copyText');
+            copyText.textContent = '✓ Kopyalandı!';
+            setTimeout(() => {
+                copyText.textContent = '📋 Kopyala';
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
