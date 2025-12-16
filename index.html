@@ -183,6 +183,27 @@
             <p class="text-xs text-gray-600 opacity-50">© 2025 evcleia - LSFD Rapor Sistemi</p>
         </div>
 
+        <!-- Geliştirici Aracı (Canlıya çıkarken kaldır) -->
+        <div class="mt-8 login-container rounded-lg p-6">
+            <h3 class="text-sm font-semibold text-gray-300 mb-4">🔧 Şifre Hash Oluşturucu (Geliştirme)</h3>
+            <div class="mb-4">
+                <input 
+                    type="text" 
+                    id="devPassword" 
+                    class="input-field w-full px-4 py-2 rounded-lg text-sm"
+                    placeholder="Şifre yazın">
+            </div>
+            <button 
+                onclick="generateHash()"
+                class="login-button w-full text-white font-semibold py-2 rounded-lg text-xs">
+                Hash Oluştur
+            </button>
+            <div id="hashOutput" class="mt-4 hidden">
+                <p class="text-xs text-gray-400 mb-2">Hash değeri:</p>
+                <div class="bg-gray-800 p-3 rounded text-xs text-green-400 break-all font-mono" id="hashValue"></div>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -307,6 +328,24 @@
                 handleLogin(e);
             }
         });
+
+        // Geliştirici için hash oluşturucu
+        async function generateHash() {
+            const password = document.getElementById('devPassword').value;
+            if (!password) {
+                alert('Lütfen bir şifre yazın');
+                return;
+            }
+            const hash = await hashPassword(password);
+            document.getElementById('hashValue').textContent = hash;
+            document.getElementById('hashOutput').classList.remove('hidden');
+            
+            // Kopyalama için tıklama eventi
+            document.getElementById('hashValue').onclick = function() {
+                navigator.clipboard.writeText(hash);
+                alert('Hash kopyalandı!');
+            };
+        }
     </script>
 </body>
 </html>
