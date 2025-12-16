@@ -552,8 +552,9 @@ ${formuDolduran}[/indent][/size][/tdwidth]
 ${formTarihi}[/indent][/size][/tdwidth]`;
 
             document.getElementById('output').value = bbcode;
-            document.getElementById('outputContainer').classList.remove('hidden');
-            document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const outputContainer = document.getElementById('outputContainer');
+            outputContainer.classList.remove('hidden');
+            outputContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function copyToClipboard() {
