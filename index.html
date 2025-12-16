@@ -218,8 +218,9 @@
                 }
                 const data = await response.json();
                 authorizedUsers = data.users;
+                console.log('✅ Kullanıcı verisi yüklendi:', authorizedUsers);
             } catch (error) {
-                console.error('Kullanıcı verisi yüklenirken hata:', error);
+                console.error('❌ Kullanıcı verisi yüklenirken hata:', error);
                 showError('Sistem hatası. Lütfen daha sonra tekrar deneyin.');
             }
         }
@@ -285,6 +286,12 @@
 
             // Şifreyi hash'le
             const hashedPassword = await hashPassword(password);
+            
+            console.log('🔍 Giriş denemesi:');
+            console.log('   Kullanıcı:', username);
+            console.log('   Girilen şifrenin hash:', hashedPassword);
+            console.log('   JSON\'daki hash:', authorizedUsers[username]);
+            console.log('   Eşleşme:', authorizedUsers[username] === hashedPassword);
 
             // Kullanıcı kontrolü
             if (authorizedUsers[username] && authorizedUsers[username] === hashedPassword) {
