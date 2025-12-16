@@ -3,307 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LSFD Rapor Sistemi</title>
-
-    <link rel="icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
-    <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
+    <title>LSFD - Rapor Sistemi</title>
     
+    <link rel="icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
     <script src="https://cdn.tailwindcss.com"></script>
-
+    
     <style>
         body {
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
             letter-spacing: -0.01em;
             background-color: #1a1d21;
         }
-        .document-container {
-            background: #2A2E33;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        }
-        .field-label {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #e5e7eb;
-        }
-        .section-card {
+        .card {
             background: #2A2E33;
             border: 2px solid #3f444a;
             transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
-        .section-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(153, 27, 27, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        .section-card:hover::before {
-            left: 100%;
-        }
-        .section-card:hover {
+        .card:hover {
             border-color: #991b1b;
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(153, 27, 27, 0.3);
+            box-shadow: 0 12px 32px rgba(153, 27, 27, 0.3);
         }
-        .section-icon {
-            width: 100px;
-            height: 100px;
+        .header-bar {
+            background: linear-gradient(135deg, #2A2E33, #1f2327);
+            border-bottom: 2px solid #3f444a;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+        .logout-btn {
             background: linear-gradient(135deg, #991b1b, #7f1d1d);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: white;
-            margin: 0 auto 24px;
-            box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4);
+            transition: all 0.3s ease;
         }
-        .subsection-card {
-            background: #1f2327;
-            border: 1px solid #3f444a;
-            transition: all 0.2s ease;
-            cursor: pointer;
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(153, 27, 27, 0.4);
         }
-        .subsection-card:hover {
-            border-color: #991b1b;
-            background: #252a2f;
-            transform: translateX(4px);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .text-gray-900 { color: #f3f4f6 !important; }
-        .text-gray-600 { color: #d1d5db !important; }
-        .text-gray-700 { color: #d1d5db !important; }
-        .hidden { display: none; }
-        .back-button {
-            background: #3f444a;
-            transition: all 0.2s ease;
-        }
-        .back-button:hover {
-            background: #991b1b;
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
         }
     </style>
 </head>
-<body class="min-h-screen py-12 px-4" style="background-color: #1a1d21;">
-    <div class="min-h-screen py-12 px-4">
-        <div class="max-w-6xl mx-auto">
+<body class="min-h-screen">
+    
+    <!-- Header -->
+    <header class="header-bar p-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://i.imgur.com/niSY7Na.png" alt="LSFD" class="h-12">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-100">LSFD Rapor Sistemi</h1>
+                    <p class="text-xs text-gray-400">Los Santos Fire Department</p>
+                </div>
+            </div>
             
-            <!-- Header -->
-
-            <div class="document-container rounded mb-8">
-                <div class="text-center py-12 px-8">
-                    <img src="https://i.imgur.com/ngOEnwW.png" 
-                         alt="LSFD" 
-                         style="width: 600px; height: auto;" 
-                         class="mx-auto mb-8 opacity-90">
-                    <h1 class="text-3xl font-semibold text-gray-900 tracking-tight mb-3">Rapor Sistemi</h1>
-                    <h2 class="text-lg text-gray-600 font-medium"></h2>
-                    <p class="text-sm text-gray-700 mt-4 max-w-2xl mx-auto">Oluşturmak istediğiniz form kategorisini seçin</p>
+            <div class="flex items-center gap-4">
+                <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-100" id="userFullName">-</p>
+                    <p class="text-xs text-gray-400" id="userRank">-</p>
                 </div>
-            </div>
-
-            <!-- Main Menu -->
-            <div id="mainMenu">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <!-- NFIRS Section -->
-                    <div class="section-card rounded-lg p-8" onclick="showNFIRS()">
-                        <div class="section-icon">
-                            <img src="https://i.imgur.com/4RsupSI.png" alt="NFIRS" style="width: 80px; height: 80px; object-fit: contain;">
-                        </div>
-                        <h3 class="text-3xl font-semibold text-gray-900 mb-4 text-center">NFIRS</h3>
-                        <p class="text-base text-gray-700 text-center mb-6">National Fire Incident Reporting System</p>
-                        <div class="border-t border-gray-600 pt-6 mt-6">
-                            <p class="text-sm text-gray-600 text-center">
-                                Yangın olayları için standart raporlama formları
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- EMS Section -->
-                    <div class="section-card rounded-lg p-8" onclick="showEMS()">
-                        <div class="section-icon">
-                            <img src="https://i.imgur.com/gEsQdal.png" alt="EMS" style="width: 80px; height: 80px; object-fit: contain;">
-                        </div>
-                        <h3 class="text-3xl font-semibold text-gray-900 mb-4 text-center">EMS</h3>
-                        <p class="text-base text-gray-700 text-center mb-6">Emergency Medical Services</p>
-                        <div class="border-t border-gray-600 pt-6 mt-6">
-                            <p class="text-sm text-gray-600 text-center">
-                                Acil tıbbi müdahale ve hasta bakım formları
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- NFIRS Submenu -->
-            <div id="nfirsMenu" class="hidden">
-                <button onclick="showMain()" class="back-button text-white px-6 py-3 rounded mb-6 font-medium uppercase tracking-wide text-sm">
-                    ← Ana Menüye Dön
+                <button onclick="logout()" class="logout-btn px-4 py-2 rounded-lg text-white text-sm font-semibold">
+                    Çıkış Yap
                 </button>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- NFIRS-1 Basic -->
-                    <div class="subsection-card rounded-lg p-6" onclick="window.location.href='nfirs-1.html'">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-red-800 to-red-900 rounded-lg flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                1
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">NFIRS-1 Basic Module</h3>
-                                <p class="text-sm text-gray-700 mb-3">Temel Yangın Olay Raporu</p>
-                                <ul class="text-xs text-gray-600 space-y-1">
-                                    <li>• Olay temel bilgileri</li>
-                                    <li>• Yönelen birimler ve zamanlar</li>
-                                    <li>• Alınan aksiyonlar</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- NFIRS-3 Structure Fire -->
-                    <div class="subsection-card rounded-lg p-6" onclick="window.location.href='nfirs-3.html'">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-red-800 to-red-900 rounded-lg flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                3
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">NFIRS-3 Structure Fire Module</h3>
-                                <p class="text-sm text-gray-700 mb-3">Yapısal Yangın Detay Raporu</p>
-                                <ul class="text-xs text-gray-600 space-y-1">
-                                    <li>• Yapı türü ve malzemesi</li>
-                                    <li>• Yangın yayılımı ve hasar</li>
-                                    <li>• Dedektör ve yağmurlama sistemi</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- NFIRS-4 Civilian Casualty -->
-                    <div class="subsection-card rounded-lg p-6" onclick="window.location.href='nfirs-4.html'">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-red-800 to-red-900 rounded-lg flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                4
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">NFIRS-4 Civilian Fire Casualty</h3>
-                                <p class="text-sm text-gray-700 mb-3">Sivil Yaralı/Kayıp Raporu</p>
-                                <ul class="text-xs text-gray-600 space-y-1">
-                                    <li>• Kazazede bilgileri</li>
-                                    <li>• Yaralanma ciddiyeti ve türü</li>
-                                    <li>• Sağlanan tedavi</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- NFIRS-5 Fire Service Casualty -->
-                    <div class="subsection-card rounded-lg p-6" onclick="window.location.href='nfirs-5.html'">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-red-800 to-red-900 rounded-lg flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                5
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">NFIRS-5 Fire Service Casualty</h3>
-                                <p class="text-sm text-gray-700 mb-3">İtfaiyeci Yaralı/Kayıp Raporu</p>
-                                <ul class="text-xs text-gray-600 space-y-1">
-                                    <li>• İtfaiyeci bilgileri ve rütbesi</li>
-                                    <li>• Yaralanma sırasında yapılan eylem</li>
-                                    <li>• Ekipman performansı</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- EMS Submenu -->
-            <div id="emsMenu" class="hidden">
-                <button onclick="showMain()" class="back-button text-white px-6 py-3 rounded mb-6 font-medium uppercase tracking-wide text-sm">
-                    ← Ana Menüye Dön
-                </button>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- Patient Care Report -->
-                    <div class="subsection-card rounded-lg p-6" onclick="window.location.href='pcr.html'">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-red-800 to-red-900 rounded-lg flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                📋
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">Patient Care Report</h3>
-                                <p class="text-sm text-gray-700 mb-3">Hasta Bakım Raporu</p>
-                                <ul class="text-xs text-gray-600 space-y-1">
-                                    <li>• Hasta demografik bilgileri</li>
-                                    <li>• Vital bulgular ve değerlendirme</li>
-                                    <li>• Uygulanan tedavi ve müdahaleler</li>
-                                    <li>• Nakil bilgileri</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Info Box -->
-            <div class="document-container rounded p-6 mt-8">
-                <div class="text-center">
-                    <h3 class="field-label mb-3">SİSTEM BİLGİSİ</h3>
-                    <p class="text-sm text-gray-700 leading-relaxed">
-                        Bu sistem, Los Santos Fire Department için NFIRS (National Fire Incident Reporting System) 
-                        ve EMS (Emergency Medical Services) formlarını BBCode formatında oluşturmanıza yardımcı olur. 
-                        Her form, ilgili olay türüne özel detaylı bilgileri içerir ve forum paylaşımı için optimize edilmiştir.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Copyright -->
-            <div class="text-center mt-8 py-4">
-                <p class="text-xs text-gray-600 opacity-50">© 2025 evcleia - GTA-W:TR, Los Santos Fire Department oluşumunun kullanımı için tasarlanmıştır, tamamen IC amaçlar doğrultusunda kullanılmalıdır.</p>
             </div>
         </div>
-    </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-6">
+        
+        <!-- Hoşgeldiniz Mesajı -->
+        <div class="card rounded-lg p-6 mb-8 fade-in">
+            <h2 class="text-2xl font-bold text-gray-100 mb-2">Hoşgeldiniz! 🚒</h2>
+            <p class="text-gray-400">Lütfen doldurmak istediğiniz rapor formunu seçin.</p>
+        </div>
+
+        <!-- Form Kartları -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- NFIRS-1 -->
+            <div class="card rounded-lg p-6 cursor-pointer fade-in" style="animation-delay: 0.1s" onclick="openForm('nfirs1')">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="bg-red-900/30 p-3 rounded-lg">
+                        <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xs bg-red-900/50 text-red-300 px-3 py-1 rounded-full font-semibold">NFIRS</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-100 mb-2">NFIRS-1</h3>
+                <p class="text-sm text-gray-400">Olay Raporu - Genel olay bilgileri</p>
+            </div>
+
+            <!-- NFIRS-3 -->
+            <div class="card rounded-lg p-6 cursor-pointer fade-in" style="animation-delay: 0.2s" onclick="openForm('nfirs3')">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="bg-orange-900/30 p-3 rounded-lg">
+                        <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xs bg-orange-900/50 text-orange-300 px-3 py-1 rounded-full font-semibold">NFIRS</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-100 mb-2">NFIRS-3</h3>
+                <p class="text-sm text-gray-400">Yangın Raporu - Yangın detayları</p>
+            </div>
+
+            <!-- NFIRS-4 -->
+            <div class="card rounded-lg p-6 cursor-pointer fade-in" style="animation-delay: 0.3s" onclick="openForm('nfirs4')">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="bg-yellow-900/30 p-3 rounded-lg">
+                        <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xs bg-yellow-900/50 text-yellow-300 px-3 py-1 rounded-full font-semibold">NFIRS</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-100 mb-2">NFIRS-4</h3>
+                <p class="text-sm text-gray-400">Yapı ve Mülk Raporu</p>
+            </div>
+
+            <!-- NFIRS-5 -->
+            <div class="card rounded-lg p-6 cursor-pointer fade-in" style="animation-delay: 0.4s" onclick="openForm('nfirs5')">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="bg-blue-900/30 p-3 rounded-lg">
+                        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xs bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full font-semibold">NFIRS</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-100 mb-2">NFIRS-5</h3>
+                <p class="text-sm text-gray-400">Yaralı/Ölüm Raporu</p>
+            </div>
+
+            <!-- PCR -->
+            <div class="card rounded-lg p-6 cursor-pointer fade-in" style="animation-delay: 0.5s" onclick="openForm('pcr')">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="bg-green-900/30 p-3 rounded-lg">
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xs bg-green-900/50 text-green-300 px-3 py-1 rounded-full font-semibold">MEDICAL</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-100 mb-2">PCR</h3>
+                <p class="text-sm text-gray-400">Patient Care Report - Hasta bakım raporu</p>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12">
+            <p class="text-xs text-gray-600">© 2025 evcleia - LSFD Rapor Sistemi</p>
+        </div>
+
+    </main>
 
     <script>
-        function showNFIRS() {
-            document.getElementById('mainMenu').classList.add('hidden');
-            document.getElementById('emsMenu').classList.add('hidden');
-            document.getElementById('nfirsMenu').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        // Sayfa yüklendiğinde kontroller
+        window.addEventListener('DOMContentLoaded', () => {
+            // Giriş kontrolü
+            if (sessionStorage.getItem('lsfdAuth') !== 'true') {
+                window.location.href = 'index.html';
+                return;
+            }
 
-        function showEMS() {
-            document.getElementById('mainMenu').classList.add('hidden');
-            document.getElementById('nfirsMenu').classList.add('hidden');
-            document.getElementById('emsMenu').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showMain() {
-            document.getElementById('nfirsMenu').classList.add('hidden');
-            document.getElementById('emsMenu').classList.add('hidden');
-            document.getElementById('mainMenu').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Add subtle hover effects
-        document.querySelectorAll('.section-card, .subsection-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-            });
+            // Kullanıcı bilgilerini göster
+            const fullName = sessionStorage.getItem('lsfdFullName') || 'Kullanıcı';
+            const rank = sessionStorage.getItem('lsfdRank') || 'Personel';
+            
+            document.getElementById('userFullName').textContent = fullName;
+            document.getElementById('userRank').textContent = rank;
         });
+
+        function logout() {
+            // Session'ı temizle
+            sessionStorage.clear();
+            
+            // Login sayfasına yönlendir
+            window.location.href = 'index.html';
+        }
+
+        function openForm(formType) {
+            // Form sayfalarına yönlendir
+            const formPages = {
+                'nfirs1': 'nfirs1.html',
+                'nfirs3': 'nfirs3.html',
+                'nfirs4': 'nfirs4.html',
+                'nfirs5': 'nfirs5.html',
+                'pcr': 'pcr.html'
+            };
+
+            if (formPages[formType]) {
+                window.location.href = formPages[formType];
+            } else {
+                alert('Bu form henüz hazır değil.');
+            }
+        }
     </script>
+
 </body>
 </html>

@@ -155,7 +155,7 @@
 
                 <!-- Hata Mesajı -->
                 <div id="errorMessage" class="error-message rounded-lg p-4 mb-6 hidden">
-                    <p class="text-sm font-medium">❌ Kullanıcı adı veya şifre hatalı!</p>
+                    <p class="text-sm font-medium">✖ Kullanıcı adı veya şifre hatalı!</p>
                 </div>
 
                 <!-- Giriş Butonu -->
@@ -182,28 +182,6 @@
         <div class="text-center mt-8">
             <p class="text-xs text-gray-600 opacity-50">© 2025 evcleia - LSFD Rapor Sistemi</p>
         </div>
-
-        <!-- Geliştirici Aracı (Canlıya çıkarken kaldır) -->
-        <div class="mt-8 login-container rounded-lg p-6">
-            <h3 class="text-sm font-semibold text-gray-300 mb-4">🔧 Şifre Hash Oluşturucu (Geliştirme)</h3>
-            <div class="mb-4">
-                <input 
-                    type="text" 
-                    id="devPassword" 
-                    class="input-field w-full px-4 py-2 rounded-lg text-sm"
-                    placeholder="Şifre yazın">
-            </div>
-            <button 
-                onclick="generateHash()"
-                class="login-button w-full text-white font-semibold py-2 rounded-lg text-xs">
-                Hash Oluştur
-            </button>
-            <div id="hashOutput" class="mt-4 hidden">
-                <p class="text-xs text-gray-400 mb-2">Hash değeri:</p>
-                <div class="bg-gray-800 p-3 rounded text-xs text-green-400 break-all font-mono" id="hashValue"></div>
-            </div>
-        </div>
-
     </div>
 
     <script>
@@ -214,18 +192,19 @@
             try {
                 const response = await fetch('users.json');
                 if (!response.ok) {
-                    throw new Error('Kullanıcı veritabanı yüklenemedi');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
                 authorizedUsers = data.users;
-                console.log('✅ Kullanıcı verisi yüklendi:', authorizedUsers);
+                console.log('✅ Kullanıcı verisi yüklendi');
+                return true;
             } catch (error) {
                 console.error('❌ Kullanıcı verisi yüklenirken hata:', error);
-                showError('Sistem hatası. Lütfen daha sonra tekrar deneyin.');
+                return false;
             }
         }
 
-        // Şifreyi hash'le (basit SHA-256)
+        // Şifreyi hash'le (SHA-256)
         async function hashPassword(password) {
             const encoder = new TextEncoder();
             const data = encoder.encode(password);
@@ -236,7 +215,7 @@
 
         function showError(message) {
             const errorMessage = document.getElementById('errorMessage');
-            errorMessage.querySelector('p').textContent = '❌ ' + message;
+            errorMessage.querySelector('p').textContent = '✖ ' + message;
             errorMessage.classList.remove('hidden');
             errorMessage.classList.add('fade-in-down');
             setTimeout(() => {
@@ -275,13 +254,12 @@
 
             // Kullanıcı listesi yüklenmemişse yükle
             if (!authorizedUsers) {
-                await loadUsers();
-            }
-
-            // Kullanıcı yüklenemezse
-            if (!authorizedUsers) {
-                setLoading(false);
-                return;
+                const loaded = await loadUsers();
+                if (!loaded) {
+                    setLoading(false);
+                    showError('Kullanıcı veritabanına erişilemiyor. Lütfen sistem yöneticinize başvurun.');
+                    return;
+                }
             }
 
             // Şifreyi hash'le
@@ -290,17 +268,18 @@
             console.log('🔍 Giriş denemesi:');
             console.log('   Kullanıcı:', username);
             console.log('   Girilen şifrenin hash:', hashedPassword);
-            console.log('   JSON\'daki hash:', authorizedUsers[username]);
-            console.log('   Eşleşme:', authorizedUsers[username] === hashedPassword);
 
             // Kullanıcı kontrolü
-            if (authorizedUsers[username] && authorizedUsers[username] === hashedPassword) {
+            const userData = authorizedUsers[username];
+            if (userData && userData.password === hashedPassword) {
                 // Başarılı giriş
                 const loginTime = new Date().toISOString();
                 
                 sessionStorage.setItem('lsfdUser', username);
                 sessionStorage.setItem('lsfdAuth', 'true');
                 sessionStorage.setItem('lsfdLoginTime', loginTime);
+                sessionStorage.setItem('lsfdRank', userData.rank);
+                sessionStorage.setItem('lsfdFullName', userData.fullName);
                 
                 // Başarılı giriş animasyonu
                 const button = document.getElementById('loginButton');
@@ -335,24 +314,6 @@
                 handleLogin(e);
             }
         });
-
-        // Geliştirici için hash oluşturucu
-        async function generateHash() {
-            const password = document.getElementById('devPassword').value;
-            if (!password) {
-                alert('Lütfen bir şifre yazın');
-                return;
-            }
-            const hash = await hashPassword(password);
-            document.getElementById('hashValue').textContent = hash;
-            document.getElementById('hashOutput').classList.remove('hidden');
-            
-            // Kopyalama için tıklama eventi
-            document.getElementById('hashValue').onclick = function() {
-                navigator.clipboard.writeText(hash);
-                alert('Hash kopyalandı!');
-            };
-        }
     </script>
 </body>
 </html>

@@ -1,5 +1,24 @@
 {
   "users": {
-    "hector1": "d76bcb9154a7410fc55866ee9d0d0c60dafd76749304808b4e892160db0ae69d"
+    "admin": {
+      "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+      "rank": "Fire Chief",
+      "fullName": "John Anderson"
+    },
+    "paramedic1": {
+      "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "rank": "Paramedic",
+      "fullName": "Sarah Martinez"
+    },
+    "doctor": {
+      "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+      "rank": "Medical Director",
+      "fullName": "Dr. Michael Chen"
+    },
+    "firefighter": {
+      "password": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+      "rank": "Firefighter",
+      "fullName": "James Wilson"
+    }
   }
 }
