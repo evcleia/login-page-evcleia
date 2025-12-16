@@ -268,18 +268,37 @@
             console.log('🔍 Giriş denemesi:');
             console.log('   Kullanıcı:', username);
             console.log('   Girilen şifrenin hash:', hashedPassword);
+            console.log('   Kullanıcı verisi:', authorizedUsers[username]);
 
             // Kullanıcı kontrolü
             const userData = authorizedUsers[username];
-            if (userData && userData.password === hashedPassword) {
+            
+            // Eski format (string) veya yeni format (object) kontrolü
+            let isPasswordCorrect = false;
+            if (typeof userData === 'string') {
+                // Eski format: "username": "hash"
+                isPasswordCorrect = userData === hashedPassword;
+            } else if (userData && userData.password) {
+                // Yeni format: "username": { "password": "hash", "rank": "...", "fullName": "..." }
+                isPasswordCorrect = userData.password === hashedPassword;
+            }
+            
+            if (isPasswordCorrect) {
                 // Başarılı giriş
                 const loginTime = new Date().toISOString();
                 
                 sessionStorage.setItem('lsfdUser', username);
                 sessionStorage.setItem('lsfdAuth', 'true');
                 sessionStorage.setItem('lsfdLoginTime', loginTime);
-                sessionStorage.setItem('lsfdRank', userData.rank);
-                sessionStorage.setItem('lsfdFullName', userData.fullName);
+                
+                // Rütbe ve tam ad varsa kaydet
+                if (typeof userData === 'object') {
+                    sessionStorage.setItem('lsfdRank', userData.rank || 'Personel');
+                    sessionStorage.setItem('lsfdFullName', userData.fullName || username);
+                } else {
+                    sessionStorage.setItem('lsfdRank', 'Personel');
+                    sessionStorage.setItem('lsfdFullName', username);
+                }
                 
                 // Başarılı giriş animasyonu
                 const button = document.getElementById('loginButton');
