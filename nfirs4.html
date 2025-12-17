@@ -4,17 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFIRS-4 - LSFD Rapor Sistemi</title>
-
-<script>
-    (function() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        const currentUser = localStorage.getItem('currentUser');
-        if (!isLoggedIn || isLoggedIn !== 'true' || !currentUser) {
-            window.location.href = 'index.html';
-        }
-    })();
-</script>
-
     
     <link rel="icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -144,7 +133,7 @@
             <div class="flex items-center gap-4">
                 <img src="https://i.imgur.com/niSY7Na.png" alt="LSFD" class="h-12">
                 <div>
-                    <h1 class="text-xl font-bold text-gray-100">NFIRS-4 Civilian Fire Casualty</h1>
+                    <h1 class="text-xl font-bold text-gray-100">NFIRS-4 Civilian Fire Casualty Module</h1>
                     <p class="text-xs text-gray-400">National Fire Incident Reporting System</p>
                 </div>
             </div>
@@ -158,9 +147,9 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto p-6">
         
-        <!-- Casualty Information -->
+        <!-- Casualty Basic Info -->
         <div class="card rounded-lg p-1 mb-6 fade-in">
-            <div class="section-title">Kazazede Bilgileri</div>
+            <div class="section-title">Kazazede Temel Bilgileri</div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
@@ -173,13 +162,13 @@
                     </div>
                     <div>
                         <label class="form-label mb-3">Cinsiyeti</label>
-                        <div class="space-y-2">
+                        <div class="flex gap-4">
                             <label class="checkbox-label">
-                                <input type="radio" name="cinsiyet" value="kadin" class="checkbox-input">
+                                <input type="checkbox" name="cinsiyet" value="kadin" class="checkbox-input">
                                 <span class="text-sm">Kadın</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="radio" name="cinsiyet" value="erkek" class="checkbox-input">
+                                <input type="checkbox" name="cinsiyet" value="erkek" class="checkbox-input">
                                 <span class="text-sm">Erkek</span>
                             </label>
                         </div>
@@ -190,93 +179,92 @@
 
         <!-- Injury Details -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.1s">
-            <div class="section-title">Yaralanma Bilgileri</div>
+            <div class="section-title">Yaralanma Detayları</div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
                         <label class="form-label mb-3">Yaralanma Ciddiyeti</label>
                         <div class="space-y-2">
                             <label class="checkbox-label">
-                                <input type="radio" name="ciddiyet" value="hafif" class="checkbox-input">
+                                <input type="checkbox" name="ciddiyet" value="hafif" class="checkbox-input">
                                 <span class="text-sm">Hafif</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="radio" name="ciddiyet" value="orta" class="checkbox-input">
+                                <input type="checkbox" name="ciddiyet" value="orta" class="checkbox-input">
                                 <span class="text-sm">Orta</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="radio" name="ciddiyet" value="ciddi" class="checkbox-input">
+                                <input type="checkbox" name="ciddiyet" value="ciddi" class="checkbox-input">
                                 <span class="text-sm">Ciddi</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="radio" name="ciddiyet" value="olu" class="checkbox-input">
+                                <input type="checkbox" name="ciddiyet" value="olu" class="checkbox-input">
                                 <span class="text-sm">Ölü</span>
                             </label>
                         </div>
                     </div>
                     <div>
                         <label class="form-label">Yaralanma Türü</label>
-                        <input type="text" id="yaralanmaTuru" class="form-input" placeholder="Yanık, kesik, kırık, vb.">
+                        <input type="text" id="yaralanmaTuru" class="form-input" placeholder="Ör: Yanık">
                     </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="form-label mb-3">Etkilenen Vücut Bölgesi</label>
                         <div class="space-y-2">
                             <label class="checkbox-label">
-                                <input type="radio" name="vucutBolgesi" value="bas" class="checkbox-input">
+                                <input type="checkbox" name="vucutBolgesi" value="bas" class="checkbox-input">
                                 <span class="text-sm">Baş</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="radio" name="vucutBolgesi" value="govde" class="checkbox-input">
+                                <input type="checkbox" name="vucutBolgesi" value="govde" class="checkbox-input">
                                 <span class="text-sm">Gövde</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="radio" name="vucutBolgesi" value="kollarBacaklar" class="checkbox-input">
+                                <input type="checkbox" name="vucutBolgesi" value="kollar" class="checkbox-input">
                                 <span class="text-sm">Kollar ve Bacaklar</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="radio" name="vucutBolgesi" value="coklu" class="checkbox-input">
+                                <input type="checkbox" name="vucutBolgesi" value="coklu" class="checkbox-input">
                                 <span class="text-sm">Çoklu</span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="radio" name="vucutBolgesi" value="diger" class="checkbox-input">
-                                <span class="text-sm">Diğer</span>
-                            </label>
+                            <div class="flex items-center gap-2">
+                                <label class="checkbox-label flex-grow-0">
+                                    <input type="checkbox" name="vucutBolgesi" value="diger" class="checkbox-input" onchange="toggleOtherInput('vucutBolgesiDiger', this)">
+                                    <span class="text-sm">Diğer:</span>
+                                </label>
+                                <input type="text" id="vucutBolgesiDiger" class="form-input flex-1 text-xs" placeholder="Açıklama" disabled>
+                            </div>
                         </div>
-                        <input type="text" id="digerVucutBolgesi" class="form-input mt-2" placeholder="Diğer belirtiniz...">
                     </div>
                     <div>
                         <label class="form-label">Yaralanma Nedeni</label>
-                        <input type="text" id="yaralanmaNedeni" class="form-input" placeholder="Yangın, duman inhalasyonu, düşme, vb.">
+                        <input type="text" id="yaralanmaNedeni" class="form-input" placeholder="Ör: Duman inhalasyonu">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Action and Treatment -->
+        <!-- Action, Treatment, Hospital -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.2s">
             <div class="section-title">Eylem ve Tedavi Bilgileri</div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label class="form-label">Yaralanma Esnasında Yapılan Eylem</label>
-                        <input type="text" id="yapilanEylem" class="form-input" placeholder="Kaçış, uyku, vb.">
+                        <input type="text" id="eylem" class="form-input" placeholder="Ör: Kaçış girişimi">
                     </div>
                     <div>
                         <label class="form-label">Sağlanan Tedavi</label>
-                        <input type="text" id="tedavi" class="form-input" placeholder="İlk yardım, CPR, oksijen, vb.">
+                        <input type="text" id="tedavi" class="form-input" placeholder="Ör: İlk yardım">
                     </div>
                     <div>
                         <label class="form-label">Nakledilen Sağlık Kurumu</label>
-                        <input type="text" id="saglikKurumu" class="form-input" placeholder="Hastane adı">
+                        <input type="text" id="saglikKurumu" class="form-input" placeholder="Ör: All Saints Hospital">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Incident Narrative -->
+        <!-- Incident Notes -->
         <div class="card rounded-lg p-1 mb-6 fade-in" style="animation-delay: 0.3s">
             <div class="section-title">Olay Anlatısı</div>
             <div class="p-6">
@@ -332,33 +320,77 @@
     </main>
 
     <script>
-        function getCheckbox(name, value) {
-            const selected = document.querySelector(`input[name="${name}"]:checked`);
-            return selected && selected.value === value ? '[cbC]' : '[cb]';
+        // Sayfa yüklendiğinde giriş kontrolü
+        window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('lsfdAuth') !== 'true') {
+                window.location.href = 'index.html';
+                return;
+            }
+        });
+
+        function toggleOtherInput(inputId, checkbox) {
+            const input = document.getElementById(inputId);
+            input.disabled = !checkbox.checked;
+            if (!checkbox.checked) {
+                input.value = '';
+            }
+        }
+
+        function getCheckboxesInline(name) {
+            const allCheckboxes = document.querySelectorAll(`input[name="${name}"]`);
+            const result = [];
+            
+            allCheckboxes.forEach(cb => {
+                if (cb.value === 'diger') {
+                    const otherInput = document.getElementById(name + 'Diger');
+                    if (cb.checked && otherInput && otherInput.value.trim()) {
+                        result.push(`[cbC] Diğer: ${otherInput.value.trim()}`);
+                    } else {
+                        result.push(`[cb] Diğer: [size=85] Buraya [/size]`);
+                    }
+                } else {
+                    const prefix = cb.checked ? '[cbC]' : '[cb]';
+                    result.push(`${prefix} ${getCheckboxText(name, cb.value)}`);
+                }
+            });
+            
+            return result.join(' / ');
+        }
+
+        function getCheckboxText(name, value) {
+            const texts = {
+                'cinsiyet': {
+                    'kadin': 'Kadın',
+                    'erkek': 'Erkek'
+                },
+                'ciddiyet': {
+                    'hafif': 'Hafif',
+                    'orta': 'Orta',
+                    'ciddi': 'Ciddi',
+                    'olu': 'Ölü'
+                },
+                'vucutBolgesi': {
+                    'bas': 'Baş',
+                    'govde': 'Gövde',
+                    'kollar': 'Kollar ve Bacaklar',
+                    'coklu': 'Çoklu'
+                }
+            };
+            return texts[name]?.[value] || '';
         }
 
         function generateBBCode() {
-            const kazazedeAdi = document.getElementById('kazazedeAdi').value;
-            const yas = document.getElementById('yas').value;
-            const yaralanmaTuru = document.getElementById('yaralanmaTuru').value;
-            const yaralanmaNedeni = document.getElementById('yaralanmaNedeni').value;
-            const yapilanEylem = document.getElementById('yapilanEylem').value;
-            const tedavi = document.getElementById('tedavi').value;
-            const saglikKurumu = document.getElementById('saglikKurumu').value;
-            const olayAnlatisi = document.getElementById('olayAnlatisi').value;
-            const olayKomutani = document.getElementById('olayKomutani').value;
-            const formuDolduran = document.getElementById('formuDolduran').value;
-            const formTarihi = document.getElementById('formTarihi').value;
-            const digerVucutBolgesi = document.getElementById('digerVucutBolgesi').value;
-
-            // Vücut bölgesi için özel işlem
-            const vucutBolgesiRadio = document.querySelector('input[name="vucutBolgesi"]:checked');
-            let vucutBolgesiText = '';
-            if (vucutBolgesiRadio && vucutBolgesiRadio.value === 'diger' && digerVucutBolgesi) {
-                vucutBolgesiText = `${getCheckbox('vucutBolgesi', 'bas')} Baş / ${getCheckbox('vucutBolgesi', 'govde')} Gövde / ${getCheckbox('vucutBolgesi', 'kollarBacaklar')} Kollar ve Bacaklar /  ${getCheckbox('vucutBolgesi', 'coklu')} Çoklu / ${getCheckbox('vucutBolgesi', 'diger')} Diğer: [size=85] ${digerVucutBolgesi} [/size]`;
-            } else {
-                vucutBolgesiText = `${getCheckbox('vucutBolgesi', 'bas')} Baş / ${getCheckbox('vucutBolgesi', 'govde')} Gövde / ${getCheckbox('vucutBolgesi', 'kollarBacaklar')} Kollar ve Bacaklar /  ${getCheckbox('vucutBolgesi', 'coklu')} Çoklu / ${getCheckbox('vucutBolgesi', 'diger')} Diğer: [size=85] Buraya [/size]`;
-            }
+            const kazazedeAdi = document.getElementById('kazazedeAdi').value || 'Buraya';
+            const yas = document.getElementById('yas').value || '00';
+            const yaralanmaTuru = document.getElementById('yaralanmaTuru').value || 'Buraya';
+            const yaralanmaNedeni = document.getElementById('yaralanmaNedeni').value || 'Buraya';
+            const eylem = document.getElementById('eylem').value || 'Buraya';
+            const tedavi = document.getElementById('tedavi').value || 'Buraya';
+            const saglikKurumu = document.getElementById('saglikKurumu').value || 'Buraya';
+            const olayAnlatisi = document.getElementById('olayAnlatisi').value || 'Buraya';
+            const olayKomutani = document.getElementById('olayKomutani').value || 'Buraya';
+            const formuDolduran = document.getElementById('formuDolduran').value || 'Buraya';
+            const formTarihi = document.getElementById('formTarihi').value || '23/11/2024';
 
             const bbcode = `[center][size=125]UNITED STATES FIRE ADMINISTRATION
 [b]NATIONAL FIRE INCIDENT REPORTING SYSTEM (NFIRS-4 CIVILIAN FIRE CASUALTY)[/b][/size][/center]
@@ -367,33 +399,27 @@
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]KAZAZEDENİN ADI[/b]
 ${kazazedeAdi}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YAŞI[/b]
-${yas}
-[/indent][/size][/tdwidth]
+${yas}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]CİNSİYETİ[/b]
-${getCheckbox('cinsiyet', 'kadin')} Kadın / ${getCheckbox('cinsiyet', 'erkek')} Erkek[/indent][/size][/tdwidth][/table]
+${getCheckboxesInline('cinsiyet')}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YARALANMA CİDDİYETİ[/b]
-${getCheckbox('ciddiyet', 'hafif')} Hafif / ${getCheckbox('ciddiyet', 'orta')} Orta / ${getCheckbox('ciddiyet', 'ciddi')} Ciddi / ${getCheckbox('ciddiyet', 'olu')} Ölü
-[/indent][/size][/tdwidth]
+${getCheckboxesInline('ciddiyet')}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YARALANMA TÜRÜ[/b]
 ${yaralanmaTuru}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]ETKİLENEN VÜCUT BÖLGESİ[/b]
-${vucutBolgesiText}[/indent][/size][/tdwidth]
+${getCheckboxesInline('vucutBolgesi')}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YARALANMA NEDENİ[/b]
-${yaralanmaNedeni}
-[/indent][/size][/tdwidth][/table]
+${yaralanmaNedeni}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]YARALANMA ESNASINDA YAPILAN EYLEM[/b]
-${yapilanEylem}
-[/indent][/size][/tdwidth]
+${eylem}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]SAĞLANAN TEDAVİ[/b]
-${tedavi}
-[/indent][/size][/tdwidth]
+${tedavi}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]NAKLEDİLEN SAĞLIK KURUMU[/b]
-${saglikKurumu}
-[/indent][/size][/tdwidth][/table]
+${saglikKurumu}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2][b]OLAY ANLATISI VE EK BİLGİLENDİRMELER[/b]
@@ -408,8 +434,9 @@ ${formuDolduran}[/indent][/size][/tdwidth]
 ${formTarihi}[/indent][/size][/tdwidth]`;
 
             document.getElementById('output').value = bbcode;
-            document.getElementById('outputContainer').classList.remove('hidden');
-            document.getElementById('outputContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const outputContainer = document.getElementById('outputContainer');
+            outputContainer.classList.remove('hidden');
+            outputContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function copyToClipboard() {
