@@ -4,6 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFIRS-5 - LSFD Rapor Sistemi</title>
+
+ <script>
+    (function() {
+        'use strict';
+        
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        
+        
+        document.addEventListener('keydown', e => {
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode === 83) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+        
+        let devtoolsOpen = false;
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                devtoolsOpen = true;
+                blockPage();
+            }
+        });
+        
+        const detectDevTools = () => {
+            const widthThreshold = window.outerWidth - window.innerWidth > 160;
+            const heightThreshold = window.outerHeight - window.innerHeight > 160;
+            
+            if (widthThreshold || heightThreshold || devtoolsOpen) {
+                blockPage();
+            }
+            
+            console.log(element);
+            console.clear();
+        };
+        
+        function blockPage() {
+            document.body.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, #000000, #1a1a1a);
+                    color: #ff0000;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: Arial, sans-serif;
+                    z-index: 999999;
+                ">
+                    <h1 style="font-size: 48px; margin-bottom: 20px;">⚠️ UYARI</h1>
+                    <p style="font-size: 24px;">Developer Tools Tespit Edildi!</p>
+                    <p style="font-size: 18px; margin-top: 10px; color: #ff6666;">Sayfa güvenlik nedeniyle kapatılmıştır.</p>
+                </div>
+            `;
+            setTimeout(() => {
+                window.location.href = 'about:blank';
+            }, 2000);
+        }
+        
+        setInterval(detectDevTools, 500);
+        
+        setInterval(() => {
+            (function() {
+                return false;
+            }['constructor']('debugger')['call']());
+        }, 100);
+        
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+        
+        const methods = ['log', 'debug', 'info', 'warn', 'error', 'table', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd', 'profile', 'profileEnd', 'clear'];
+        methods.forEach(method => {
+            console[method] = function() {};
+        });
+        
+    })();
+    </script>
+
+    <style>
+    * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+    </style>
+    <!-- PANELİNİZİ KAPATMANIZ GEREKİYOR -->
     
     <link rel="icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
     <script src="https://cdn.tailwindcss.com"></script>
