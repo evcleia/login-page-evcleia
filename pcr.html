@@ -7,6 +7,34 @@
     
     <link rel="icon" type="image/png" href="https://i.imgur.com/niSY7Na.png">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        
+// Sağ tık engelleme
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// F12, Ctrl+Shift+I, Ctrl+U engelleme
+document.addEventListener('keydown', e => {
+    if (e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.key === 'u')) {
+        e.preventDefault();
+        alert('Bu özellik devre dışı bırakılmıştır!');
+    }
+});
+
+// Metin seçimini engelleme
+document.addEventListener('selectstart', e => e.preventDefault());
+</script>
+
+<style>
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+</style>
     
     <style>
         body {
